@@ -2,6 +2,10 @@ import { Navbar } from "@/components/navbar";
 import { HeroSection } from "@/components/hero-section";
 import { AdmitPatient } from "@/components/admit-patient";
 import { StatsBar } from "@/components/stats-bar";
+import { PatientDashboard } from "@/components/patient-dashboard";
+import { CarePrograms } from "@/components/care-programs";
+import { CtaBanner } from "@/components/cta-banner";
+import { Footer } from "@/components/footer";
 
 export default function Home() {
   return (
@@ -17,6 +21,11 @@ export default function Home() {
         <AdmitPatient />
         <StatsBar />
       </main>
+
+      <PatientDashboard />
+      <CarePrograms />
+      <CtaBanner />
+      <Footer />
 
       {/* Decorative glow blob (dark mode only) */}
       <div
