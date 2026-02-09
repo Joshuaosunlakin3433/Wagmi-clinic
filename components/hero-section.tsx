@@ -16,7 +16,15 @@ export function HeroSection() {
           text-black
           dark:text-white dark:drop-shadow-[0_0_15px_rgba(240,185,11,0.4)]"
       >
-        Is Your Wallet
+        Is Your W
+        <motion.span
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ repeat: Infinity, duration: 0.8, ease: "easeInOut" }}
+          className="inline-block align-middle"
+        >
+          🫀
+        </motion.span>
+        llet
         <br />
         Hurting?
       </motion.h1>

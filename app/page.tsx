@@ -9,10 +9,7 @@ import { Footer } from "@/components/footer";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col items-center relative overflow-hidden bg-background text-foreground bg-noise">
-      {/* Grid pattern overlay */}
-      <div className="fixed inset-0 bg-grid-pattern pointer-events-none opacity-40 dark:opacity-20" />
-
+    <div className="min-h-screen flex flex-col items-center relative overflow-hidden text-foreground">
       <Navbar />
 
       {/* ─── Hero Section ─── */}

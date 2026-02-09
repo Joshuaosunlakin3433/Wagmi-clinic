@@ -14,7 +14,7 @@ const communityLinks = [
 
 export function Footer() {
   return (
-    <footer className="w-full border-t border-black/10 dark:border-white/10 bg-white dark:bg-black relative z-10">
+    <footer className="w-full border-t border-black/10 dark:border-white/10 bg-transparent relative z-10">
       <div className="max-w-6xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-12">
           {/* Brand */}
@@ -23,10 +23,14 @@ export function Footer() {
               <span className="text-xl font-extrabold tracking-tighter text-black dark:text-white">
                 WAGMI CLINI
               </span>
-              <Activity className="w-5 h-5 text-[#F0B90B] -ml-0.5" strokeWidth={3} />
+              <Activity
+                className="w-5 h-5 text-[#F0B90B] -ml-0.5"
+                strokeWidth={3}
+              />
             </a>
             <p className="mt-4 text-sm text-slate-500 dark:text-slate-400 max-w-xs leading-relaxed">
-              Professional rehabilitation services for distressed crypto portfolios. Not financial advice.
+              Professional rehabilitation services for distressed crypto
+              portfolios. Not financial advice.
             </p>
           </div>
 

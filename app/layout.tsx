@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
       >
         <ThemeProvider
           attribute="class"
@@ -35,7 +35,17 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          {/* 1. Solid Base Layer */}
+          <div className="fixed inset-0 z-[-2] bg-white dark:bg-[#050505]" />
+
+          {/* 2. The Crosshair Pattern (Fixed to window) */}
+          <div className="fixed inset-0 z-[-1] bg-surgical-pattern opacity-100 pointer-events-none" />
+
+          {/* 3. The Scanline Beam */}
+          <div className="fixed inset-0 z-0 animate-scanline pointer-events-none" />
+
+          {/* 4. The Main Content (Relative z-10) */}
+          <main className="relative z-10 min-h-screen">{children}</main>
         </ThemeProvider>
       </body>
     </html>

@@ -1,12 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
 import { fadeUp } from "@/lib/animations";
 
 export function AdmitPatient() {
-  const [wallet, setWallet] = useState("");
+  const [address, setAddress] = useState("");
+  const [isAdmitting, setIsAdmitting] = useState(false);
+  const router = useRouter();
+
+  const handleAdmit = async () => {
+    if (!address.trim()) return;
+    setIsAdmitting(true);
+    await new Promise((resolve) => setTimeout(resolve, 800));
+    router.push("/diagnosis?address=" + encodeURIComponent(address.trim()));
+  };
 
   return (
     <motion.div
@@ -25,21 +35,32 @@ export function AdmitPatient() {
       >
         <input
           type="text"
-          value={wallet}
-          onChange={(e) => setWallet(e.target.value)}
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && handleAdmit()}
           placeholder="Enter Wallet Address (0x...)"
+          disabled={isAdmitting}
           className="flex-1 px-5 py-4 text-base bg-transparent outline-none placeholder:text-slate-400
-            dark:placeholder:text-slate-500 text-black dark:text-white"
+            dark:placeholder:text-slate-500 text-black dark:text-white disabled:opacity-50"
         />
-        <button
-          className="group flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-bold transition-all
+        <motion.button
+          onClick={handleAdmit}
+          disabled={isAdmitting}
+          whileHover={isAdmitting ? {} : { scale: 1.05 }}
+          whileTap={isAdmitting ? {} : { scale: 0.98 }}
+          className={`group flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-bold transition-all
             bg-black text-white hover:bg-black/85
             dark:bg-[#F0B90B] dark:text-black dark:hover:bg-[#F0B90B]/90
-            whitespace-nowrap"
+            whitespace-nowrap disabled:opacity-70 disabled:cursor-not-allowed
+            ${isAdmitting ? "animate-pulse" : ""}`}
         >
-          Admit Patient
-          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-        </button>
+          {isAdmitting ? "Admitting..." : "Admit Patient"}
+          {isAdmitting ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          )}
+        </motion.button>
       </div>
     </motion.div>
   );
