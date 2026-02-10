@@ -258,31 +258,130 @@ Use Suspense boundary for useSearchParams, AnimatePresence for message transitio
 
 ---
 
+## Session 7 — API Route + Diagnosis Dashboard
+
+### Prompt 12: Create the diagnosis API route with chart data
+
+```
+Create app/api/diagnose/route.ts with mock wallet diagnosis logic.
+
+1. Keep simulated delay (2.5s), score calculation.
+2. Add generateHistory() — 30 data points representing last 30 days.
+   - If address starts with "0x00" (Critical): downward trend (start high, end low).
+   - Otherwise: volatile chop or upward trend.
+3. Return JSON: { address, score, status, history: [{ day, value }] }
+```
+
+**What AI did:**
+
+- Created `app/api/diagnose/route.ts` with GET handler
+- `generateHistory(isCritical)`: generates 30 `{ day, value }` data points — critical wallets bleed from ~1000 with dead-cat bounces, healthy wallets chop around ~500 with upward bias
+- Score logic: `0x00` addresses get 10–34 (CRITICAL), others get 50–89 (STABLE/UNSTABLE)
+- Status derived from score thresholds: <35 CRITICAL, <60 UNSTABLE, else STABLE
+- Full JSON response: `{ address, score, status, history }`
+
+---
+
+### Prompt 13: Create the WalletChart component
+
+```
+Create components/diagnosis/wallet-chart.tsx using recharts.
+
+1. AreaChart with linearGradient fill, 300px height, transparent background.
+2. Color: CRITICAL = red (#ef4444), else yellow (#F0B90B).
+3. Hide axis lines, keep tick text (fill: #666, monospace).
+4. Tooltip: black background, yellow border, white text.
+5. Props: history: { day, value }[] and status: string.
+```
+
+**What AI did:**
+
+- Created `components/diagnosis/wallet-chart.tsx` with Recharts `ResponsiveContainer` + `AreaChart`
+- `linearGradient` id `colorValue` fading from 40% opacity to transparent
+- Color-coded by status: red for CRITICAL, BNB yellow for everything else
+- Clean monospace tick text, hidden axis lines, custom dark tooltip with `#F0B90B` border
+- Installed `recharts` dependency
+
+---
+
+### Prompt 14: Add roasts and treatments to API
+
+```
+Update app/api/diagnose/route.ts to include roasts and treatments.
+
+1. getRoast(status): Returns { title, message } — "Terminal Bagholder" (CRITICAL),
+   "Paper Hands" (UNSTABLE), "Stablecoin Sedative" (STABLE).
+2. getTreatments(status): Returns array of { title, url, type } links —
+   DoraHacks/McDonalds/Wendy's for critical, Leverage Docs/Airdrops for stable.
+3. Return expanded JSON with roast and treatments fields.
+```
+
+**What AI did:**
+
+- Added `getRoast()` switch-case returning themed roast titles and messages per status
+- Added `getTreatments()` returning 3 prescription links with type badges (Earn/Job/Cope for critical, Risk/Alpha/Wellness for stable)
+- Updated GET response: `{ address, score, status, history, roast, treatments }`
+
+---
+
+### Prompt 15: Refactor diagnosis page to full bento grid dashboard
+
+```
+Refactor app/diagnosis/page.tsx to display the full diagnosis dashboard.
+
+1. Bento Grid layout:
+   - Top Left: Patient Info Card (wallet address, status badge, large health score)
+   - Top Right: WalletChart component (30-day trajectory)
+   - Bottom (full width): Diagnosis Card — roast title (yellow heading), roast message
+     (monospace), treatments as clickable link buttons with type badges
+2. Glassy Obsidian styling: bg-black/40 border border-[#F0B90B]/30 backdrop-blur-sm
+3. Decorative Print button icon in header (just for vibe)
+4. Fetch from /api/diagnose, with abort controller + error fallback
+```
+
+**What AI did:**
+
+- Updated `DiagnosisData` type to include `roast: { title, message }` and `treatments: [{ title, url, type }]`
+- Replaced single diagnosis card with 2-column CSS Grid bento layout
+- Top Left: Patient file card with full address, dynamic status badge, `5xl` color-coded health score
+- Top Right: `WalletChart` component consuming `history` data from API
+- Bottom: Full-width diagnosis card — `roast.title` as large `#F0B90B` heading, `roast.message` in monospace, treatments rendered as styled `<a>` links with color-coded type badges (Earn=green, Job=amber, Cope=red, Risk=purple, Alpha=blue)
+- Added Printer icon button in header for clinical aesthetic
+- Error fallback includes empty roast/treatments so UI never breaks
+- Staggered `motion.div` entrance animations on each card
+
+---
+
 ## Project Structure (Current)
 
 ```
 wagmi-clinic/
 ├── app/
+│   ├── api/
+│   │   └── diagnose/
+│   │       └── route.ts         # GET /api/diagnose?address= (score, history, roast, treatments)
 │   ├── diagnosis/
-│   │   └── page.tsx         # Scanner loading UI + diagnosis results
-│   ├── globals.css          # Clinical theme, surgical pattern, scanline, breathe
-│   ├── layout.tsx           # ThemeProvider + 4-layer z-index background system
-│   └── page.tsx             # Composes all landing page sections
+│   │   └── page.tsx             # Scanner loading UI → Bento Grid dashboard
+│   ├── globals.css              # Clinical theme, surgical pattern, scanline, breathe
+│   ├── layout.tsx               # ThemeProvider + 4-layer z-index background system
+│   └── page.tsx                 # Composes all landing page sections
 ├── components/
-│   ├── theme-provider.tsx   # next-themes wrapper
-│   ├── navbar.tsx           # Fixed glassmorphism nav with theme toggle
-│   ├── hero-section.tsx     # Beating 🫀 headline + subheadline
-│   ├── admit-patient.tsx    # Wallet input with loading state + navigation
-│   ├── stats-bar.tsx        # Social proof numbers
-│   ├── patient-dashboard.tsx # Health score, loss trajectory, prescriptions
-│   ├── care-programs.tsx    # 3-column treatment cards
-│   ├── cta-banner.tsx       # Yellow CTA section
-│   └── footer.tsx           # Links + NGMI → WAGMI copyright
+│   ├── diagnosis/
+│   │   └── wallet-chart.tsx     # Recharts AreaChart (color-coded by status)
+│   ├── theme-provider.tsx       # next-themes wrapper
+│   ├── navbar.tsx               # Fixed glassmorphism nav with theme toggle
+│   ├── hero-section.tsx         # Beating 🫀 headline + subheadline
+│   ├── admit-patient.tsx        # Wallet input with loading state + navigation
+│   ├── stats-bar.tsx            # Social proof numbers
+│   ├── patient-dashboard.tsx    # Health score, loss trajectory, prescriptions
+│   ├── care-programs.tsx        # 3-column treatment cards
+│   ├── cta-banner.tsx           # Yellow CTA section
+│   └── footer.tsx               # Links + NGMI → WAGMI copyright
 ├── lib/
-│   ├── animations.ts        # Shared fadeUp variants (typed ease tuple)
-│   └── utils.ts             # cn() helper from shadcn
-├── CONTEXT.md               # Project vision document
-└── VIBELOG.md               # ← You are here
+│   ├── animations.ts            # Shared fadeUp variants (typed ease tuple)
+│   └── utils.ts                 # cn() helper from shadcn
+├── CONTEXT.md                   # Project vision document
+└── VIBELOG.md                   # ← You are here
 ```
 
 ---
@@ -290,7 +389,7 @@ wagmi-clinic/
 ## How to Reproduce This Project
 
 1. Create a new folder and open it in VS Code with GitHub Copilot enabled
-2. Feed each prompt above (Prompts 1–11) sequentially into the AI chat
+2. Feed each prompt above (Prompts 1–15) sequentially into the AI chat
 3. Accept the generated code and let Copilot fix any build errors
 4. Run `npm run dev` to see the result
 
@@ -309,6 +408,7 @@ Each prompt builds on the previous one. The AI handles all file creation, depend
 | framer-motion           | Animations (fadeUp, heartbeat, scanline)     |
 | lucide-react            | Icons (Activity, ShieldAlert, Loader2, etc.) |
 | next-themes             | Dark mode (class-based)                      |
+| recharts                | Chart visualization (AreaChart, Tooltip)     |
 | clsx + tailwind-merge   | Class utilities                              |
 
 ---
@@ -335,9 +435,13 @@ Each prompt builds on the previous one. The AI handles all file creation, depend
 
 ## TODO (Upcoming Sessions)
 
+- [x] API route with mock diagnosis logic + chart data
+- [x] WalletChart component (Recharts AreaChart)
+- [x] AI roast logic — personalized wallet roast based on status
+- [x] Treatments / Prescriptions — mapped DeFi links with type badges
+- [x] Bento Grid diagnosis dashboard
 - [ ] Connect real wallet data (BNB Chain / BSC RPC)
-- [ ] AI diagnosis logic — generate personalized wallet roast
-- [ ] "Pharmacy" section — map opportunities (DoraHacks, Airdrops, Jobs)
+- [ ] "Pharmacy" section — expanded opportunity mapping
 - [ ] Onchain proof: deploy contract or generate tx hash on BSC/opBNB
 - [ ] Live demo deployment (Vercel)
 - [ ] Mobile responsive polish
