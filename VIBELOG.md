@@ -352,6 +352,76 @@ Refactor app/diagnosis/page.tsx to display the full diagnosis dashboard.
 
 ---
 
+## Session 8 — Grok Roasts + Prescription Pad
+
+### Prompt 16: Populate GROK_ROASTS with 15 savage roasts
+
+```
+Populate the GROK_ROASTS constant with 15 hardcoded savage roasts.
+Persona: Grok — savage, unhinged, loves roasting crypto degens.
+Categories: CRITICAL (exit liquidity), UNSTABLE (paper hands), STABLE (boring).
+Must be funny to AVERAGE people, not just crypto natives.
+```
+
+**What AI did:**
+
+- Replaced the old 3-roast `getRoast()` switch with a `GROK_ROASTS` dictionary containing 15 roasts (5 per status)
+- CRITICAL: "Financial Crime Scene", "Human ATM Machine", "The Reverse Midas", "Professional Bag Holder", "Scam Subscriber"
+- UNSTABLE: "Panic Button Champion", "Trend Chaser Deluxe", "3 AM Decision Maker", "FOMO Patient Zero", "The Overthinker"
+- STABLE: "The Human Savings Account", "Allergic to Fun", "The HODLer Fossil", "Spreadsheet Surgeon", "The Quiet Winner"
+- Random selection per request so repeat visits get different roasts
+- Rewrote all messages to be universally funny (no heavy crypto jargon)
+
+---
+
+### Prompt 17: Replace treatments with T.I.D Prescription system
+
+```
+Replace the old getTreatments() with a T.I.D (three times daily) prescription protocol.
+
+1. YOUTUBE_VIDEOS array — 6 motivational video links
+2. CRYPTO_QUOTES array — 6 crypto quotes (Satoshi, Vitalik, etc.)
+3. getPrescription(status) returns { morning, noon, night } doses:
+   - Morning (Hope): Random motivational video + truncated quote
+   - Noon (Grind): DoraHacks for critical/unstable, BNB Airdrops for stable
+   - Night (Cope): Touch Grass Protocol (lo-fi beats link)
+4. Updated GET response: "prescription" replaces "treatments"
+```
+
+**What AI did:**
+
+- Added `YOUTUBE_VIDEOS` (6 motivational links) and `CRYPTO_QUOTES` (6 quotes from Satoshi, Vitalik, Hal Finney, Saylor)
+- Created `getPrescription(status)` returning 3 doses with `{ label, title, subtext, url, icon }` each
+- Morning dose randomizes video + quote, Noon adapts by status, Night is always Touch Grass
+- API response now returns `prescription: { morning, noon, night }` instead of `treatments: []`
+
+---
+
+### Prompt 18: Create PrescriptionPad component + wire into dashboard
+
+```
+Create components/diagnosis/prescription-pad.tsx — a medical Rx pad UI.
+
+1. Medical header with "Rx" serif logo, "Wagmi Clinic" branding, "High Priority" badge
+2. 3-column dose grid (morning/noon/night) with icon mapping (Sun/Moon/Briefcase)
+3. Each dose is a clickable Link with hover underline + "OPEN LINK" footer
+4. Footer with italic disclaimer + "Dr. Wagmi" signature (rotated handwriting style)
+5. Wire into diagnosis page, replacing old treatments section
+```
+
+**What AI did:**
+
+- Created `components/diagnosis/prescription-pad.tsx` with `PrescriptionPad` component
+- Medical header: serif "Rx", clinic name, "Dr. Grok, M.D. (Degen Medicine)", red High Priority badge
+- 3-column responsive grid with `divide-x` separators, hover states (`bg-yellow-50/50`)
+- Icon mapping via `getIcon()` switch (Sun → orange, Moon → indigo, Briefcase → emerald)
+- Footer: "\*Not financial advice. Side effects may include touching grass." + tilted signature
+- Updated `DiagnosisData` type to use `prescription: { morning, noon, night }` instead of `treatments`
+- Removed unused imports (`ExternalLink`, `Pill`) and `typeBadge` constant from diagnosis page
+- Error fallback includes placeholder prescription doses
+
+---
+
 ## Project Structure (Current)
 
 ```
@@ -359,7 +429,7 @@ wagmi-clinic/
 ├── app/
 │   ├── api/
 │   │   └── diagnose/
-│   │       └── route.ts         # GET /api/diagnose?address= (score, history, roast, treatments)
+│   │       └── route.ts         # GET /api/diagnose (score, history, roast, prescription)
 │   ├── diagnosis/
 │   │   └── page.tsx             # Scanner loading UI → Bento Grid dashboard
 │   ├── globals.css              # Clinical theme, surgical pattern, scanline, breathe
@@ -367,7 +437,8 @@ wagmi-clinic/
 │   └── page.tsx                 # Composes all landing page sections
 ├── components/
 │   ├── diagnosis/
-│   │   └── wallet-chart.tsx     # Recharts AreaChart (color-coded by status)
+│   │   ├── wallet-chart.tsx     # Recharts AreaChart (color-coded by status)
+│   │   └── prescription-pad.tsx # Medical Rx pad (3 doses, clickable links)
 │   ├── theme-provider.tsx       # next-themes wrapper
 │   ├── navbar.tsx               # Fixed glassmorphism nav with theme toggle
 │   ├── hero-section.tsx         # Beating 🫀 headline + subheadline
@@ -389,7 +460,7 @@ wagmi-clinic/
 ## How to Reproduce This Project
 
 1. Create a new folder and open it in VS Code with GitHub Copilot enabled
-2. Feed each prompt above (Prompts 1–15) sequentially into the AI chat
+2. Feed each prompt above (Prompts 1–18) sequentially into the AI chat
 3. Accept the generated code and let Copilot fix any build errors
 4. Run `npm run dev` to see the result
 
@@ -439,6 +510,9 @@ Each prompt builds on the previous one. The AI handles all file creation, depend
 - [x] WalletChart component (Recharts AreaChart)
 - [x] AI roast logic — personalized wallet roast based on status
 - [x] Treatments / Prescriptions — mapped DeFi links with type badges
+- [x] Grok-style roasts — 15 universally funny savage roasts
+- [x] T.I.D Prescription system (morning/noon/night doses)
+- [x] PrescriptionPad component (medical Rx pad UI)
 - [x] Bento Grid diagnosis dashboard
 - [ ] Connect real wallet data (BNB Chain / BSC RPC)
 - [ ] "Pharmacy" section — expanded opportunity mapping
