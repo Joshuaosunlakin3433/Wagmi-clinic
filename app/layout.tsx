@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Providers } from "@/components/providers";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -35,17 +36,19 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {/* 1. Solid Base Layer */}
-          <div className="fixed inset-0 z-[-2] bg-white dark:bg-[#050505]" />
+          <Providers>
+            {/* 1. Solid Base Layer */}
+            <div className="fixed inset-0 z-[-2] bg-white dark:bg-[#050505]" />
 
-          {/* 2. The Crosshair Pattern (Fixed to window) */}
-          <div className="fixed inset-0 z-[-1] bg-surgical-pattern opacity-100 pointer-events-none" />
+            {/* 2. The Crosshair Pattern (Fixed to window) */}
+            <div className="fixed inset-0 z-[-1] bg-surgical-pattern opacity-100 pointer-events-none" />
 
-          {/* 3. The Scanline Beam */}
-          <div className="fixed inset-0 z-0 animate-scanline pointer-events-none" />
+            {/* 3. The Scanline Beam */}
+            <div className="fixed inset-0 z-0 animate-scanline pointer-events-none" />
 
-          {/* 4. The Main Content (Relative z-10) */}
-          <main className="relative z-10 min-h-screen">{children}</main>
+            {/* 4. The Main Content (Relative z-10) */}
+            <main className="relative z-10 min-h-screen">{children}</main>
+          </Providers>
         </ThemeProvider>
       </body>
     </html>

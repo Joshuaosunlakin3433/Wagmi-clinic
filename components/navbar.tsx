@@ -54,7 +54,13 @@ export function Navbar() {
           </button>
 
           <a
-            href="#scan"
+            href="#admit-patient"
+            onClick={(e) => {
+              e.preventDefault();
+              document
+                .getElementById("admit-patient")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
             className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all
               bg-black text-white hover:bg-black/80
               dark:bg-[#F0B90B] dark:text-black dark:hover:bg-[#F0B90B]/90"

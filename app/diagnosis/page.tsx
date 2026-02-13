@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { WalletChart } from "@/components/diagnosis/wallet-chart";
 import { PrescriptionPad } from "@/components/diagnosis/prescription-pad";
+import { MintButton } from "@/components/diagnosis/mint-button";
 import { Activity, ShieldAlert, Printer, Stethoscope } from "lucide-react";
 
 // ── Types ──
@@ -289,6 +290,18 @@ function DiagnosisContent() {
           >
             {prescription && <PrescriptionPad data={prescription} />}
           </motion.div>
+
+          {/* Row 4: The On-Chain Mint (Grand Finale) */}
+          <div className="md:col-span-3 mt-8">
+            <MintButton
+              status={data.status}
+              score={data.score}
+              roast={data.roast.title}
+            />
+            <p className="text-center text-[10px] text-slate-500 mt-4 font-mono uppercase tracking-widest opacity-60">
+              Minting creates a permanent Soulbound Token on BNB Chain Testnet
+            </p>
+          </div>
         </div>
       </motion.div>
     </div>

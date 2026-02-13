@@ -504,22 +504,198 @@ Each prompt builds on the previous one. The AI handles all file creation, depend
 
 ---
 
+## Session 9 — Smart Contract + On-Chain Integration
+
+### Prompt 19: Create Soulbound Token (SBT) contract
+
+```
+Create a Solidity smart contract (WagmiClinicSBT.sol) that mints a non-transferable
+ERC-721 "Soulbound Token" for each diagnosis.
+
+1. Stores diagnosis data: status, score, roast title, timestamp.
+2. Generates fully on-chain tokenURI with Base64-encoded JSON metadata.
+3. Blocks transfers (Soulbound) with a custom revert message.
+4. Uses OpenZeppelin ERC721 + Ownable.
+```
+
+**What AI did:**
+
+- Created `contract/WagmiClinicSBT.sol` using Solidity ^0.8.20
+- `Diagnosis` struct storing status, score, roast, and date
+- `mintDiagnosis()` public function — anyone can mint their record
+- `tokenURI()` generates fully on-chain JSON (name, description, image, attributes) encoded in Base64
+- `_update()` override blocks all transfers with: `"Dr. Wagmi says: This medical record is non-transferable."`
+- Deployed to BNB Smart Chain Testnet at `0x51868Fd46910adb4772Ef42CC7D8e426bebCA13e`
+
+---
+
+### Prompt 20: Wagmi/Viem providers + wallet connection setup
+
+```
+Create a Providers component that wraps the app with WagmiProvider (BSC Testnet),
+TanStack QueryClientProvider, and Sonner toast notifications. Configure injected
+wallet connector with BNB Testnet RPC.
+```
+
+**What AI did:**
+
+- Created `components/providers.tsx` with `WagmiProvider`, `QueryClientProvider`, Sonner `Toaster`
+- Configured `createConfig` for `bscTestnet` chain with injected connector and public RPC
+- Styled toast notifications to match the dark/gold clinical theme
+- Updated `layout.tsx` to wrap app with `<Providers>`
+
+---
+
+### Prompt 21: MintButton component — on-chain SBT minting
+
+```
+Create components/diagnosis/mint-button.tsx — a button that mints the user's diagnosis
+as a Soulbound Token on BNB Testnet.
+
+1. Connect wallet if not connected (injected connector).
+2. Auto-switch to BSC Testnet (chainId 97) if on wrong chain.
+3. Call mintDiagnosis(status, score, roast) on the deployed contract.
+4. Show states: Connect → Switch Chain → Mint → Confirming → Success (with tx link).
+5. Use wagmi hooks: useAccount, useConnect, useWriteContract, useWaitForTransactionReceipt.
+```
+
+**What AI did:**
+
+- Created `MintButton` with full state machine: disconnected → wrong chain → ready → pending → confirming → success
+- Each state renders a unique button (Wallet icon, AlertTriangle, Stamp, Loader2, CheckCircle2)
+- Success state links to BscScan testnet explorer with the transaction hash
+- Wired into the diagnosis dashboard with `status`, `score`, and `roast` props
+- Uses `sonner` toasts for error feedback
+
+---
+
+### Prompt 22: Dynamic GRIND_OPPORTUNITIES + prescription refinements
+
+```
+Add a GRIND_OPPORTUNITIES array with BNB ecosystem links (opBNB, Airdrop Alliance,
+DoraHacks, Binance Labs). Update getPrescription to randomly pick from this array for
+CRITICAL/UNSTABLE wallets, and show DeFi Alpha for STABLE wallets. Use full quotes
+for morning subtext instead of truncating.
+```
+
+**What AI did:**
+
+- Added `GRIND_OPPORTUNITIES` array (4 entries: opBNB, Airdrop Alliance, DoraHacks, Binance Labs)
+- Noon dose: CRITICAL/UNSTABLE randomly selects from grind opportunities; STABLE gets "DeFi Leverage Strategies"
+- Morning subtext now shows full `randomQuote` instead of `.substring(0, 50) + "..."`
+- Added "Lawyer Up" comment block at top of `route.ts` explaining the architecture for judges
+
+---
+
+## Project Structure (Current)
+
+```
+wagmi-clinic/
+├── app/
+│   ├── api/
+│   │   └── diagnose/
+│   │       └── route.ts         # GET /api/diagnose (score, history, roast, prescription)
+│   ├── diagnosis/
+│   │   └── page.tsx             # Scanner loading UI → Bento Grid dashboard
+│   ├── globals.css              # Clinical theme, surgical pattern, scanline, breathe
+│   ├── layout.tsx               # Providers + ThemeProvider + 4-layer z-index system
+│   └── page.tsx                 # Composes all landing page sections
+├── components/
+│   ├── diagnosis/
+│   │   ├── wallet-chart.tsx     # Recharts AreaChart (color-coded by status)
+│   │   ├── prescription-pad.tsx # Medical Rx pad (3 doses, clickable links)
+│   │   └── mint-button.tsx      # On-chain SBT minting (BSC Testnet)
+│   ├── providers.tsx            # WagmiProvider + QueryClient + Sonner
+│   ├── theme-provider.tsx       # next-themes wrapper
+│   ├── navbar.tsx               # Fixed glassmorphism nav with theme toggle
+│   ├── hero-section.tsx         # Beating 🫀 headline + subheadline
+│   ├── admit-patient.tsx        # Wallet input with loading state + navigation
+│   ├── stats-bar.tsx            # Social proof numbers
+│   ├── patient-dashboard.tsx    # Health score, loss trajectory, prescriptions
+│   ├── care-programs.tsx        # 3-column treatment cards
+│   ├── cta-banner.tsx           # Yellow CTA section
+│   └── footer.tsx               # Links + NGMI → WAGMI copyright
+├── contract/
+│   └── WagmiClinicSBT.sol       # Soulbound ERC-721 (deployed on BSC Testnet)
+├── lib/
+│   ├── animations.ts            # Shared fadeUp variants (typed ease tuple)
+│   └── utils.ts                 # cn() helper from shadcn
+├── CONTEXT.md                   # Project vision document
+├── VIBELOG.md                   # ← You are here
+└── README.md                    # Hackathon submission README
+```
+
+---
+
+## How to Reproduce This Project
+
+1. Create a new folder and open it in VS Code with GitHub Copilot enabled
+2. Feed each prompt above (Prompts 1–22) sequentially into the AI chat
+3. Accept the generated code and let Copilot fix any build errors
+4. Run `npm run dev` to see the result
+
+Each prompt builds on the previous one. The AI handles all file creation, dependency installation, and error fixing.
+
+---
+
+## Tech Stack
+
+| Tool                    | Purpose                                        |
+| ----------------------- | ---------------------------------------------- |
+| Next.js 16 (App Router) | Framework                                      |
+| TypeScript              | Type safety                                    |
+| Tailwind CSS v4         | Styling                                        |
+| shadcn/ui               | Component primitives                           |
+| framer-motion           | Animations (fadeUp, heartbeat, scanline)       |
+| lucide-react            | Icons (Activity, ShieldAlert, Loader2, etc.)   |
+| next-themes             | Dark mode (class-based)                        |
+| recharts                | Chart visualization (AreaChart, Tooltip)       |
+| wagmi + viem            | Wallet connection + contract interaction (BSC) |
+| @tanstack/react-query   | Async state management for wagmi               |
+| @rainbow-me/rainbowkit  | Wallet UI kit                                  |
+| sonner                  | Toast notifications                            |
+| OpenZeppelin            | ERC-721 + Ownable contracts                    |
+| clsx + tailwind-merge   | Class utilities                                |
+
+---
+
+## Design System
+
+| Token      | Light     | Dark                   |
+| ---------- | --------- | ---------------------- |
+| Background | `#FFFFFF` | `#050505` (Obsidian)   |
+| Foreground | `#000000` | `#FFFFFF`              |
+| Accent     | `#F0B90B` | `#F0B90B` (BNB Yellow) |
+| Border     | `black`   | `#F0B90B/30`           |
+| Cards      | `white`   | `black/50`             |
+
+**Background Layers (layout.tsx):**
+
+- z-[-2]: Solid color base
+- z-[-1]: Surgical crosshair pattern (SVG "+" marks, breathing animation)
+- z-[0]: Scanline sweep beam (yellow gradient, 4s loop)
+- z-[10]: Content
+- z-[50]: Navbar
+
+---
+
 ## TODO (Upcoming Sessions)
 
 - [x] API route with mock diagnosis logic + chart data
 - [x] WalletChart component (Recharts AreaChart)
 - [x] AI roast logic — personalized wallet roast based on status
-- [x] Treatments / Prescriptions — mapped DeFi links with type badges
 - [x] Grok-style roasts — 15 universally funny savage roasts
 - [x] T.I.D Prescription system (morning/noon/night doses)
 - [x] PrescriptionPad component (medical Rx pad UI)
 - [x] Bento Grid diagnosis dashboard
+- [x] Smart contract: Soulbound ERC-721 (deployed on BSC Testnet)
+- [x] Wallet connection: WagmiProvider + injected connector
+- [x] MintButton: on-chain SBT minting from diagnosis page
+- [x] GRIND_OPPORTUNITIES: dynamic ecosystem links in prescription
 - [ ] Connect real wallet data (BNB Chain / BSC RPC)
-- [ ] "Pharmacy" section — expanded opportunity mapping
-- [ ] Onchain proof: deploy contract or generate tx hash on BSC/opBNB
+- [ ] Live Grok API integration (xAI) for real-time roasts
 - [ ] Live demo deployment (Vercel)
 - [ ] Mobile responsive polish
-- [ ] Community voting + social sharing features
 
 ---
 

@@ -20,11 +20,12 @@ export function AdmitPatient() {
 
   return (
     <motion.div
+      id="admit-patient"
       variants={fadeUp}
       initial="hidden"
       animate="visible"
       custom={2}
-      className="mt-12 w-full max-w-xl"
+      className="mt-12 w-full max-w-xl scroll-mt-24"
     >
       <div
         className="flex flex-col sm:flex-row gap-3 w-full p-2
