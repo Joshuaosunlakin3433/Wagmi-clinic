@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <em>Get roasted by Dr. Grok. Get prescribed real opportunities. Mint your diagnosis as a Soulbound Token.</em>
+  <em>Get roasted by Dr. Wagmi. Get prescribed real opportunities. Mint your diagnosis as a Soulbound Token.</em>
 </p>
 
 <p align="center">
@@ -77,7 +77,7 @@ The **Diagnosis Engine** analyzes wallet patterns and generates:
 
 - **Health Score** (0–100) with CRITICAL / UNSTABLE / STABLE status
 - **30-Day Wallet Trajectory** chart (Recharts visualization)
-- **Savage AI Roast** — one of 15 Grok-style personas that roast your trading habits in a way that's funny to _everyone_, not just crypto natives
+- **Savage AI Roast** — one of 15 Dr. Wagmi personas that roast your trading habits in a way that's funny to _everyone_, not just crypto natives
 
 ### Step 3: T.I.D Prescription Protocol
 
@@ -95,7 +95,7 @@ One click mints your diagnosis as a **non-transferable ERC-721** on BNB Smart Ch
 
 - Health score as an NFT attribute
 - Diagnosis status (CRITICAL/UNSTABLE/STABLE)
-- Dr. Grok's roast title
+- Dr. Wagmi's roast title
 - Fully on-chain metadata (Base64-encoded JSON, no IPFS dependency)
 
 ---
@@ -259,11 +259,28 @@ wagmi-clinic/
 
 ---
 
+## 🎭 Design Process
+
+The UI was designed using **Figma AI** and translated into production code by **Claude 3.5 Sonnet** via GitHub Copilot. Original design artifacts are preserved in the [`/assets`](assets/) folder as proof of the vibecoding workflow.
+
+The Figma AI prompt used to generate the initial design:
+
+> _"Design a high-fidelity landing page for a Web3 app called 'Wagmi Clinic'. The concept is a 'Rehab Center for Crypto Wallets' that scans a user's blockchain history and prescribes help. Style: 'Clinical Brutalism' mixed with 'Swiss Design'. Grid-based, high contrast, clean lines, plenty of whitespace. Colors: Dominant 'Sterile White' and 'Slate Gray', with accents of 'BNB Gold' (#F0B90B) and 'Emergency Red'. Typography: Large, bold sans-serif headings with monospace fonts for data numbers."_
+
+Design artifacts in `/assets`:
+
+- `Homepage- 1.png` — Landing page composition
+- `Patient dashboard - 2.png` — Diagnosis bento grid
+- `Treatment options- 3.png` — Care programs section
+- `Footer -4.png` — Footer layout
+
+---
+
 ## 🤖 Built with AI
 
 This entire project was built using **GitHub Copilot (Claude)** in VS Code. Every component, animation, API route, and smart contract was generated through conversational prompts.
 
-The full prompt-by-prompt build log is available in [VIBELOG.md](VIBELOG.md) — judges can reproduce the entire project by feeding those prompts sequentially into an AI coding assistant.
+The full prompt-by-prompt build log is available in [VIBELOG.md](VIBELOG.md) — judges can reproduce the entire project by feeding those prompts sequentially into an AI coding assistant. The VIBELOG documents every session, prompt, and decision made during the vibecoding journey.
 
 ---
 

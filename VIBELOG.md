@@ -16,6 +16,45 @@ This file is a **prompt-by-prompt log** of every major step — so judges (and a
 
 ---
 
+## Session 0 — Design (Figma AI)
+
+### Prompt 0: Generate high-fidelity UI designs
+
+**Tool:** Figma AI (not code — visual design generation)
+
+```
+Design a high-fidelity landing page for a Web3 app called "Wagmi Clinic".
+The concept is a "Rehab Center for Crypto Wallets" that scans a user's blockchain
+history and prescribes help.
+
+Aesthetic & Vibe:
+- Style: "Clinical Brutalism" mixed with "Swiss Design".
+- Layout: Grid-based, high contrast, clean lines, plenty of whitespace (like a medical chart).
+- Colors: Dominant "Sterile White" and "Slate Gray", with accents of "BNB Gold" (#F0B90B)
+  and "Emergency Red" for error states.
+- Typography: Large, bold sans-serif headings (Helvetica/Inter style) with monospace
+  fonts for data numbers.
+
+Key Sections:
+1. Hero Section: "Is Your Wallet Hurting?" headline, wallet address input, "Admit Patient" button.
+2. Dashboard Preview (Bento Grid): "Wallet Health Score: 32/100 (Critical Condition)",
+   "Loss Trajectory" graph dipping down, "Prescription" list.
+3. Treatments Section: Three cards — "Urgent Care", "Physical Therapy", "Group Therapy".
+4. Logo: "WAGMI CLINIC" with a "+"/pulse symbol integrated into the branding.
+```
+
+**What Figma AI did:**
+
+- Generated 4 high-fidelity screens:
+  - `Homepage- 1.png` — Landing page with hero, input, and stats
+  - `Patient dashboard - 2.png` — Bento grid diagnosis dashboard
+  - `Treatment options- 3.png` — Care programs section
+  - `Footer -4.png` — Footer layout
+- These designs were then translated into code by Claude 3.5 Sonnet via GitHub Copilot
+- Original artifacts preserved in `/assets` folder as proof of the vibecoding workflow
+
+---
+
 ## Session 1 — Project Scaffolding
 
 ### Prompt 1: Initialize the project

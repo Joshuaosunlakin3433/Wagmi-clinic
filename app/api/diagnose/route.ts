@@ -133,8 +133,8 @@ const GROK_ROASTS: Record<string, { title: string; message: string }[]> = {
 // ── 3. DATABASE: The Prescription (T.I.D Protocol) ──
 
 const YOUTUBE_VIDEOS = [
-  "https://www.youtube.com/watch?v=JNW0wnPRAKs",
-  "https://www.youtube.com/watch?v=uOPMnjPR5DA",
+  "https://www.youtube.com/watch?v=JNW0WnPRAKs",
+  "https://www.youtube.com/watch?v=u0PMnjPR5DA",
   "https://www.youtube.com/watch?v=I1DwIc5dHdg",
   "https://www.youtube.com/watch?v=G5exseZHBkY",
   "https://www.youtube.com/watch?v=YLAH0ONhjbg",
@@ -144,8 +144,10 @@ const YOUTUBE_VIDEOS = [
 const CRYPTO_QUOTES = [
   "Lost coins only make everyone else's coins worth slightly more. Think of it as a donation to everyone. — Satoshi Nakamoto",
   "The computer can be used as a tool to liberate and protect people, rather than to control them. — Hal Finney",
+  "We have elected to put our money and faith in a mathematical framework that is free of politics and human error. — Tyler Winklevoss",
   "If you don't believe it or don't get it, I don't have the time to try to convince you, sorry. — Satoshi Nakamoto",
-  "Whereas most technologies tend to automate workers on the periphery doing menial tasks, blockchains automate away the center. — Vitalik Buterin",
+  "Crypto is not just about trading tokens, it's part of a broader ethos of protecting freedom and privacy and keeping power in the hands of the little guy. — Vitalik Buterin",
+  "The future of finance is crypto, whether it’s in payments, contracts, or savings. — Changpeng Zhao",
   "A lot of people automatically dismiss e-currency as a lost cause because of all the companies that failed since the 1990's. I hope it's obvious it was only the centrally controlled nature of those systems that doomed them. — Satoshi Nakamoto",
   "Bitcoin is a swarm of cyber hornets serving the goddess of wisdom, feeding on the fire of truth, exponentially growing ever smarter, faster, and stronger behind a wall of encrypted energy. — Michael Saylor",
 ];

@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   title: "Wagmi Clinic — AI Wallet Diagnosis",
   description:
     "AI-powered diagnosis for Degen traders. We fix broken portfolios.",
+  icons: {
+    icon: "/logo-square.svg.ico",
+  },
 };
 
 export default function RootLayout({
