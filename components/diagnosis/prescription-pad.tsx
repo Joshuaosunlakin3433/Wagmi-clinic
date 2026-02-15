@@ -44,7 +44,7 @@ export function PrescriptionPad({ data }: PrescriptionProps) {
               Wagmi Clinic
             </span>
             <span className="text-[10px] text-slate-400">
-              Dr. Grok, M.D. (Degen Medicine)
+              Dr. Wagmi, M.D. (Degen Medicine)
             </span>
           </div>
         </div>
