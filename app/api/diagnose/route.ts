@@ -223,7 +223,7 @@ function getPrescription(status: string) {
     label: "Night (Cope)",
     title: "Touch Grass Protocol",
     subtext: "Disconnect before you wreck yourself.",
-    url: "https://www.youtube.com/watch?v=lTRiuFIWV54",
+    url: "https://www.youtube.com/watch?v=Ctf-EIBR2YU",
     icon: "Moon",
   };
 
