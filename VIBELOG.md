@@ -733,8 +733,8 @@ Each prompt builds on the previous one. The AI handles all file creation, depend
 - [x] GRIND_OPPORTUNITIES: dynamic ecosystem links in prescription
 - [ ] Connect real wallet data (BNB Chain / BSC RPC)
 - [ ] Live Grok API integration (xAI) for real-time roasts
-- [ ] Live demo deployment (Vercel)
-- [ ] Mobile responsive polish
+- [x] Live demo deployment (Vercel)
+- [x] Mobile responsive polish
 
 ---
 
