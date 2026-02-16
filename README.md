@@ -1,4 +1,8 @@
 <p align="center">
+  <img src="assets/screenshots/WAGMI%20CLINIC%20LOGO%20FOR%20README.png" alt="Wagmi Clinic Logo" width="200" />
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/BNB_Chain-F0B90B?style=for-the-badge&logo=binance&logoColor=black" />
   <img src="https://img.shields.io/badge/Next.js_16-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" />
   <img src="https://img.shields.io/badge/Solidity-363636?style=for-the-badge&logo=solidity&logoColor=white" />
@@ -28,7 +32,18 @@
 
 ---
 
-## 🎯 The Problem
+## � Live Demo
+
+|                  | Link                                                        |
+| :--------------- | :---------------------------------------------------------- |
+| **Live App**     | [wagmi-clinic.vercel.app](https://wagmi-clinic.vercel.app/) |
+| **YouTube Demo** | [Watch on YouTube](https://youtu.be/U5M2ZlRKMtQ)            |
+
+[![YouTube Demo](https://img.youtube.com/vi/U5M2ZlRKMtQ/maxresdefault.jpg)](https://youtu.be/U5M2ZlRKMtQ)
+
+---
+
+## �🎯 The Problem
 
 **Millions of crypto users are losing money — and nobody's helping them learn from it.**
 
@@ -71,6 +86,10 @@ Instead of staring at charts and crying, users:
 
 Enter any wallet address on the landing page. The clinical UI with surgical crosshair patterns and scanline animations sets the mood.
 
+<p align="center">
+  <img src="assets/screenshots/WAGMI%20Clinic%20hero%20page.png" alt="Wagmi Clinic Hero Page" width="800" />
+</p>
+
 ### Step 2: AI Diagnosis
 
 The **Diagnosis Engine** analyzes wallet patterns and generates:
@@ -78,6 +97,10 @@ The **Diagnosis Engine** analyzes wallet patterns and generates:
 - **Health Score** (0–100) with CRITICAL / UNSTABLE / STABLE status
 - **30-Day Wallet Trajectory** chart (Recharts visualization)
 - **Savage AI Roast** — one of 15 Dr. Wagmi personas that roast your trading habits in a way that's funny to _everyone_, not just crypto natives
+
+<p align="center">
+  <img src="assets/screenshots/Wagmi%20clinic-%20analysis%20and%20dx%20section.png" alt="Wagmi Clinic Analysis & Diagnosis" width="800" />
+</p>
 
 ### Step 3: T.I.D Prescription Protocol
 
@@ -97,6 +120,10 @@ One click mints your diagnosis as a **non-transferable ERC-721** on BNB Smart Ch
 - Diagnosis status (CRITICAL/UNSTABLE/STABLE)
 - Dr. Wagmi's roast title
 - Fully on-chain metadata (Base64-encoded JSON, no IPFS dependency)
+
+<p align="center">
+  <img src="assets/screenshots/Wagmi%20clinic-%20Prescription%20and%20minting%20section.png" alt="Wagmi Clinic Prescription & Minting" width="800" />
+</p>
 
 ---
 
@@ -267,12 +294,12 @@ The Figma AI prompt used to generate the initial design:
 
 > _"Design a high-fidelity landing page for a Web3 app called 'Wagmi Clinic'. The concept is a 'Rehab Center for Crypto Wallets' that scans a user's blockchain history and prescribes help. Style: 'Clinical Brutalism' mixed with 'Swiss Design'. Grid-based, high contrast, clean lines, plenty of whitespace. Colors: Dominant 'Sterile White' and 'Slate Gray', with accents of 'BNB Gold' (#F0B90B) and 'Emergency Red'. Typography: Large, bold sans-serif headings with monospace fonts for data numbers."_
 
-Design artifacts in `/assets`:
+Design artifacts & screenshots in `/assets/screenshots`:
 
-- `Homepage- 1.png` — Landing page composition
-- `Patient dashboard - 2.png` — Diagnosis bento grid
-- `Treatment options- 3.png` — Care programs section
-- `Footer -4.png` — Footer layout
+- `WAGMI CLINIC LOGO FOR README.png` — Project logo
+- `WAGMI Clinic hero page.png` — Landing page & admit patient UI
+- `Wagmi clinic- analysis and dx section.png` — Diagnosis dashboard with health score & AI roast
+- `Wagmi clinic- Prescription and minting section.png` — Rx prescription pad & SBT minting UI
 
 ---
 
